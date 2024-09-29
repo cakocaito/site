@@ -12,18 +12,53 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: Arial, sans-serif;
         }
 
         div {
             text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h3 {
+            margin: 10px 0;
+        }
+
+        /* Estilos para dispositivos maiores, como desktops */
+        @media (min-width: 768px) {
+            div {
+                width: 50%; /* Largura de 50% para telas maiores */
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Estilos para dispositivos móveis */
+        @media (max-width: 767px) {
+            div {
+                width: 90%; /* Largura de 90% para dispositivos móveis */
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div>
         <img src="caio.png" alt="Caio Image">
-        <h3>POR FAVOR ME AJUDE COM UM PIX SOU APENAS UM MENINO PERIFÉRICO QUERENDO TOMAR UMA CERVEJA, DEUS ABHENÇOE</h3>
-        <h1>PIX: 21 97710 9456</h1>
+        <h3>POR FAVOR ME AJUDE COM UM PIX SOU APENAS UM MENINO PERIFÉRICO QUERENDO TOMAR UMA CERVEJA, DEUS ABENÇOE</h3>
+        <h3>PIX: 21 97710 9456</h3>
     </div>
 </body>
 </html>
