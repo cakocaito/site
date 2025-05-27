@@ -1,64 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <title>AJUDA PF</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-        }
-
-        div {
-            text-align: center;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        h3 {
-            margin: 10px 0;
-        }
-
-        /* Estilos para dispositivos maiores, como desktops */
-        @media (min-width: 768px) {
-            div {
-                width: 50%; /* Largura de 50% para telas maiores */
-            }
-
-            h3 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Estilos para dispositivos móveis */
-        @media (max-width: 767px) {
-            div {
-                width: 90%; /* Largura de 90% para dispositivos móveis */
-            }
-
-            h3 {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Vídeo Bloqueado</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: black;
+      height: 100%;
+      cursor: none;
+    }
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+    #overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-family: sans-serif;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div>
-        <img src="caio.png" alt="Caio Image">
-        <h3>POR FAVOR ME AJUDE COM UM PIX SOU APENAS UM MENINO PERIFÉRICO QUERENDO TOMAR UMA CERVEJA, DEUS ABENÇOE</h3>
-        <h3>PIX: 21 97710 9456</h3>
-    </div>
+
+  <div id="overlay">Clique para iniciar</div>
+
+  <video id="video" playsinline>
+    <source src="./video.mp4" type="video/mp4">
+    Seu navegador não suporta vídeo.
+  </video>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const video = document.getElementById('video');
+
+    let lastTime = 0;
+
+    overlay.addEventListener('click', () => {
+      overlay.style.display = 'none';
+
+      video.autoplay = true;
+      video.controls = false;
+      video.muted = false;
+
+      video.play().then(() => {
+        if (video.requestFullscreen) {
+          video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+          video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) {
+          video.msRequestFullscreen();
+        }
+      });
+
+      // Bloqueia pause
+      video.addEventListener('pause', () => video.play());
+
+      // Bloqueia mudança de tempo
+      setInterval(() => {
+        if (Math.abs(video.currentTime - lastTime) > 0.3) {
+          video.currentTime = lastTime;
+        } else {
+          lastTime = video.currentTime;
+        }
+      }, 200);
+
+      // Bloqueia teclado e clique direito
+      document.addEventListener('keydown', e => e.preventDefault());
+      document.addEventListener('contextmenu', e => e.preventDefault());
+    });
+  </script>
+
 </body>
 </html>
